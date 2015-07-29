@@ -1,4 +1,4 @@
-package com.ride417.myapplication;
+package com.ride417.ride417;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
