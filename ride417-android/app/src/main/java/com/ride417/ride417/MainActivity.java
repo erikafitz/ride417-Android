@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.logoutButton:
                 userLocalStore.clearUserData();
                 userLocalStore.setUserLoggedIn(false);
+                ParseUser.logOutInBackground();
+                finish();
                 startActivity(new Intent(this, Login.class));
                 break;
         }

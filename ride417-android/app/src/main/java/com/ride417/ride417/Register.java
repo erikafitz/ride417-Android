@@ -55,15 +55,15 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 String email = etEmail.getText().toString();
                 String name = etName.getText().toString();
                 String phoneNumber = etPhoneNum.getText().toString();
-                if (!email.endsWith(".edu") || !email.contains("@")) {
+                if (password.isEmpty() || email.isEmpty() || name.isEmpty() || phoneNumber.isEmpty()) {
                     //alert
-                    showAlert("Please enter a valid .edu email");
+                    showAlert("All fields are required");
                 } else if (!password.equals(passwordConfirmed)) {
                     //alert
                     showAlert("Passwords do not match");
-                } else if (password.isEmpty() || email.isEmpty() || name.isEmpty() || phoneNumber.isEmpty()) {
+                } else if (!email.endsWith(".edu")) {
                     //alert
-                    showAlert("All fields are required");
+                    showAlert("Please enter a valid .edu email");
                 }
                 //if everything is okay...
                 else{
