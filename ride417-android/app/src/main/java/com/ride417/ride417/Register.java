@@ -24,7 +24,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     Button registerButton;
     EditText etEmail, etPassword, etPasswordConfirmation, etName, etPhoneNum;
     TextView backToLogin;
-    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +41,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         registerButton.setOnClickListener(this);
         backToLogin.setOnClickListener(this);
 
-        userLocalStore = new UserLocalStore(this);
     }
 
     @Override
     public void onClick(View v){
         switch(v.getId()) {
             case R.id.registerButton:
-                //validation
                 String password = etPassword.getText().toString();
                 String passwordConfirmed = etPasswordConfirmation.getText().toString();
                 String email = etEmail.getText().toString();
@@ -71,13 +68,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     parseUser.setEmail(email);
                     parseUser.setUsername(email);
                     parseUser.setPassword(password);
-                    final User registeredData = new User(name, email, password, phoneNumber, false);
-                    userLocalStore.storeUserData(registeredData);
                     parseUser.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
                             if (e == null) {
-                                userLocalStore.setUserLoggedIn(true);
                                 startActivity(new Intent(Register.this, MainActivity.class));
                             } else {
                                 // Sign up didn't succeed. Look at the ParseException

@@ -20,7 +20,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     Button loginButton;
     EditText etEmail, etPassword;
     TextView toCreateAccount;
-    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         loginButton.setOnClickListener(this);
         toCreateAccount.setOnClickListener(this);
 
-        userLocalStore = new UserLocalStore(this);
     }
 
     @Override
@@ -47,15 +45,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 Boolean driver = false;
                 String name = "";
                 String phoneNum = "";
-                User user = new User(name,email,password,phoneNum,driver);
-                userLocalStore.storeUserData(user);
                 ParseUser.logInInBackground(email, password, new LogInCallback() {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
                         if (parseUser != null) {
                             // If user exist and authenticated, send user to the terms/conditions page
                             startActivity(new Intent(Login.this, MainActivity.class));
-                            userLocalStore.setUserLoggedIn(true);
                         } else {
                             showAlert(e.getMessage());
                         }

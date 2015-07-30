@@ -13,7 +13,7 @@ import com.parse.ParseUser;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button logoutButton;
-    UserLocalStore userLocalStore;
+    //UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         logoutButton.setOnClickListener(this);
 
-        userLocalStore = new UserLocalStore(this);
     }
 
     private boolean authenticate(){
-        return userLocalStore.getUserLoggedIn();
+        return ParseUser.getCurrentUser().isAuthenticated();
     }
 
     @Override
@@ -52,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         switch(v.getId()){
             case R.id.logoutButton:
-                userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
                 ParseUser.logOutInBackground();
                 finish();
                 startActivity(new Intent(this, Login.class));
