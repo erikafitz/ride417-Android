@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.*;
 import android.view.*;
 import com.parse.Parse;
+import com.parse.ParseACL;
+import com.parse.ParseUser;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -15,12 +17,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "Rj5yrt1LSQ3mBSNxyl393ti9LTQnq5shAw3sevAO", "DrC5xwSrSiJ67QeeHgOb7K3nfZ4EkHtbrmCSNMi8");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ParseUser.enableAutomaticUser();
+        ParseACL defaultACL = new ParseACL();
+        defaultACL.setPublicReadAccess(true);
+        ParseACL.setDefaultACL(defaultACL,true);
 
         logoutButton = (Button) findViewById(R.id.logoutButton);
 

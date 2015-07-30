@@ -11,6 +11,11 @@ import android.widget.*;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
 import org.w3c.dom.Text;
 
 
@@ -19,6 +24,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     Button registerButton;
     EditText etEmail, etPassword, etPasswordConfirmation, etName, etPhoneNum;
     TextView backToLogin;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
         registerButton.setOnClickListener(this);
         backToLogin.setOnClickListener(this);
+
+        userLocalStore = new UserLocalStore(this);
     }
 
     @Override
@@ -59,8 +67,26 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 }
                 //if everything is okay...
                 else{
-                    User registeredData = new User(name,email,password,phoneNumber,false);
-                    startActivity(new Intent(this, MainActivity.class));
+                    ParseUser parseUser = new ParseUser();
+                    parseUser.setEmail(email);
+                    parseUser.setUsername(email);
+                    parseUser.setPassword(password);
+                    final User registeredData = new User(name, email, password, phoneNumber, false);
+                    userLocalStore.storeUserData(registeredData);
+                    parseUser.signUpInBackground(new SignUpCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                userLocalStore.setUserLoggedIn(true);
+                                startActivity(new Intent(Register.this, MainActivity.class));
+                            } else {
+                                // Sign up didn't succeed. Look at the ParseException
+                                // to figure out what went wrong
+                                showAlert(e.getMessage());
+
+                            }
+                        }
+                    });
                 }
                 break;
             case R.id.backToLogin:
@@ -81,5 +107,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+
 
 }
