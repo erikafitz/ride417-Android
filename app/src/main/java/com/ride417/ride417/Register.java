@@ -101,6 +101,4 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
-
-
 }

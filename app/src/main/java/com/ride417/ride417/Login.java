@@ -50,7 +50,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     public void done(ParseUser parseUser, ParseException e) {
                         if (parseUser != null) {
                             // If user exist and authenticated, send user to the terms/conditions page
-                            startActivity(new Intent(Login.this, MainActivity.class));
+                            // startActivity(new Intent(Login.this, MainActivity.class));
+                            startActivity(new Intent(Login.this, RequestRide.class)); // only for testing
                         } else {
                             showAlert(e.getMessage());
                         }

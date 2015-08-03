@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
-        defaultACL.setPublicReadAccess(true);
-        ParseACL.setDefaultACL(defaultACL,true);
+        //ParseACL defaultACL = new ParseACL(); // This block of code was messing with the RideRequest ParseObject
+        //defaultACL.setPublicReadAccess(true);
+        //ParseACL.setDefaultACL(defaultACL,true);
 
         logoutButton = (Button) findViewById(R.id.logoutButton);
 

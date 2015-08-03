@@ -26,6 +26,10 @@
             android:name=".Register"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity
+            android:name=".RequestRide"
+            android:label="@string/title_activity_request_ride" >
+        </activity>
     </application>
 
 </manifest>
