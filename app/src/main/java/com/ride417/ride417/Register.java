@@ -64,11 +64,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 }
                 //if everything is okay...
                 else{
-                    ParseUser parseUser = new ParseUser();
-                    parseUser.setEmail(email);
-                    parseUser.setUsername(email);
-                    parseUser.setPassword(password);
-                    parseUser.signUpInBackground(new SignUpCallback() {
+                    User user = new User();
+                    user.setEmail(email);
+                    user.setUsername(email);
+                    user.setPassword(password);
+                    user.setName(name);
+                    user.setPhoneNumber(phoneNumber);
+                    user.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
                             if (e == null) {

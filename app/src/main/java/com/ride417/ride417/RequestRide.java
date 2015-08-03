@@ -13,8 +13,12 @@ import com.parse.ParseACL;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+/**
+ * Created by jackietran on 8/3/15.
+ */
 public class RequestRide extends Activity implements View.OnClickListener{
 
+    User user;
     Button submit;
     EditText etPickUp, etDropOff, etPassengers, etPhoneNumber, etName;
 
@@ -23,11 +27,16 @@ public class RequestRide extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_ride);
 
+        user = (User) ParseUser.getCurrentUser();
+
         etPickUp = (EditText) findViewById(R.id.pickup);
         etDropOff = (EditText) findViewById(R.id.dropoff);
         etPassengers = (EditText) findViewById(R.id.numPassengers);
+
         etName = (EditText) findViewById(R.id.name);
+        etName.setText(user.getName());
         etPhoneNumber = (EditText) findViewById(R.id.phoneNumber);
+        etPhoneNumber.setText(user.getPhoneNumber());
 
         submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(this);
@@ -51,8 +60,6 @@ public class RequestRide extends Activity implements View.OnClickListener{
                     //alert
                     showAlert("Please enter a valid number (ex. 4 or 17)");
                 } else{ //if everything is okay...
-                    ParseUser user = ParseUser.getCurrentUser();
-
                     ParseObject rideRequest = new ParseObject("RideRequest");
                     rideRequest.put("pickupLoc", pickup);
                     rideRequest.put("dropoffLoc", dropoff);
@@ -60,7 +67,6 @@ public class RequestRide extends Activity implements View.OnClickListener{
                     rideRequest.put("progress", "unassigned");
                     rideRequest.put("name", name);
                     rideRequest.put("number", phoneNumber);
-
                     rideRequest.saveInBackground();
 
                     ParseACL parseACL = new ParseACL();
