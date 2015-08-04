@@ -28,4 +28,12 @@ public class User extends ParseUser{
     public void setPhoneNumber(String phoneNumber) {
         put("number", phoneNumber);
     }
+
+    public boolean isDriver() {
+        return getBoolean("driver");
+    }
+
+    public void setIsDriver(boolean isDriver) {
+        put("driver", isDriver);
+    }
 }

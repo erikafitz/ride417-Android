@@ -65,6 +65,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     user.setPassword(password);
                     user.setName(name);
                     user.setPhoneNumber(phoneNumber);
+                    user.setIsDriver(false);
                     user.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
